@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Show Net Metrics</title>
+        <link href="main.css" rel="stylesheet" type="text/css" />
+        <script src="./js/jquery-1.11.1.min.js"></script>
+        <script src="./js/three.js"></script>
+        <script src="./js/TrackballControls.js"></script>
+	<script src="./js/three_extra.js"></script>
+        <script src="./js/jgraph.js"></script>
+    </head>
+    <body>
+        <div class="graph"></div>
+        <div class="description">
+            <h1>Connections and communication volumn in last interval</h1>
+            <p>
+                The size and color of ip 3D object and edges will be changed by communication volumn.
+	    </p>
+        </div>
+
+        <script type="text/javascript">
+            jgraph.create('.graph', {directed: false});  //
+            $.getJSON('netmetrics.json', function (graph) {
+                jgraph.drawText(graph);
+		//jgraph.draw(graph);
+            });
+
+            jgraph.onNodeClick(function (node) {
+                if (node.userdata)
+                    alert("got userdata: " + node.userdata);
+            });
+
+        </script>
+    </body>
+</html>
